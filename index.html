@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b0d10">
+
+    <title>The Nageshwar Games — Friend Fighter</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Socket connection for online multiplayer -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+<main class="app">
+
+    <!-- HEADER -->
+    <header class="site-header">
+
+        <div>
+            <p class="eyebrow">THE NAGESHWAR GAMES</p>
+
+            <h1>FRIEND FIGHTER</h1>
+
+            <p class="subtitle">
+                Your friends. Your arena. Only one champion.
+            </p>
+        </div>
+
+        <button class="ghost-button" id="soundToggle" type="button">
+            SOUND: ON
+        </button>
+
+    </header>
+
+
+    <!-- MAIN MENU -->
+    <section class="screen panel" id="menuScreen">
+
+        <div class="hero-copy">
+
+            <p class="eyebrow">LOCAL + ONLINE FIGHTING GAME</p>
+
+            <h2>ENTER THE ARENA.</h2>
+
+            <p>
+                Choose your fighter, challenge a friend
+                and win the championship.
+            </p>
+
+        </div>
+
+        <div class="menu-actions">
+
+            <button class="primary-button" id="quickFightBtn">
+                QUICK FIGHT
+            </button>
+
+            <button class="secondary-button" id="chooseFightersBtn">
+                CHOOSE FIGHTERS
+            </button>
+
+            <button class="secondary-button" id="onlineBtn">
+                ONLINE BATTLE
+            </button>
+
+            <button class="secondary-button" id="recordsBtn">
+                LEADERBOARD & HISTORY
+            </button>
+
+        </div>
+
+        <p class="muted tiny">
+            LOCAL MULTIPLAYER · BEST OF 3 · ONLINE ROOMS
+        </p>
+
+    </section>
+
+
+    <!-- CHARACTER SELECTION -->
+    <section class="screen panel" id="selectScreen" hidden>
+
+        <div class="section-heading">
+
+            <p class="eyebrow">BUILD YOUR MATCH</p>
+
+            <h2>CHOOSE YOUR FIGHTERS</h2>
+
+            <p class="muted">
+                Select a different character for each player.
+            </p>
+
+        </div>
+
+
+        <div class="selection-columns">
+
+            <!-- PLAYER 1 -->
+            <div class="selection-column red-side">
+
+                <h3>PLAYER 1</h3>
+
+                <div class="selected-preview">
+
+                    <img id="preview1" alt="Player 1">
+
+                    <strong id="previewName1"></strong>
+
+                </div>
+
+                <div class="character-grid" id="characterGrid1"></div>
+
+            </div>
+
+
+            <!-- PLAYER 2 -->
+            <div class="selection-column blue-side">
+
+                <h3>PLAYER 2</h3>
+
+                <div class="selected-preview">
+
+                    <img id="preview2" alt="Player 2">
+
+                    <strong id="previewName2"></strong>
+
+                </div>
+
+                <div class="character-grid" id="characterGrid2"></div>
+
+            </div>
+
+        </div>
+
+
+        <div class="button-row">
+
+            <button class="secondary-button" id="selectBackBtn">
+                BACK
+            </button>
+
+            <button class="primary-button" id="localStartBtn">
+                START MATCH
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ONLINE MULTIPLAYER -->
+    <section class="screen panel" id="onlineScreen" hidden>
+
+        <div class="section-heading">
+
+            <p class="eyebrow">PLAY WITH A FRIEND ONLINE</p>
+
+            <h2>ONLINE BATTLE</h2>
+
+            <p class="muted">
+                Create a room and share its code,
+                or join a friend's room.
+            </p>
+
+        </div>
+
+
+        <div class="online-box">
+
+            <label for="playerNameInput">
+                Your display name
+            </label>
+
+            <input
+                id="playerNameInput"
+                maxlength="18"
+                placeholder="Enter your name"
+            >
+
+
+            <div class="online-actions">
+
+                <button class="primary-button" id="createRoomBtn">
+                    CREATE ROOM
+                </button>
+
+
+                <div class="join-row">
+
+                    <input
+                        id="roomCodeInput"
+                        maxlength="6"
+                        placeholder="ROOM CODE"
+                        autocomplete="off"
+                    >
+
+                    <button class="secondary-button" id="joinRoomBtn">
+                        JOIN
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="roomStatus"
+                class="room-status"
+                aria-live="polite"
+            >
+                Server connection required for online play.
+            </div>
+
+
+            <div id="roomWaiting" class="room-waiting" hidden>
+
+                <span>ROOM CODE</span>
+
+                <strong id="roomCodeDisplay"></strong>
+
+                <p id="roomPlayerStatus">
+                    Waiting for opponent…
+                </p>
+
+                <button
+                    class="primary-button"
+                    id="onlineStartBtn"
+                    disabled
+                >
+                    START ONLINE MATCH
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <button class="secondary-button back-button" id="onlineBackBtn">
+            BACK TO MENU
+        </button>
+
+    </section>
+
+
+    <!-- LEADERBOARD AND HISTORY -->
+    <section class="screen panel" id="recordsScreen" hidden>
+
+        <div class="section-heading">
+
+            <p class="eyebrow">YOUR LOCAL RECORDS</p>
+
+            <h2>LEADERBOARD & MATCH HISTORY</h2>
+
+            <p class="muted">
+                Records are saved in this browser on this device.
+            </p>
+
+        </div>
+
+
+        <div class="records-columns">
+
+            <div>
+
+                <h3>LEADERBOARD</h3>
+
+                <ol id="leaderboardList" class="record-list"></ol>
+
+            </div>
+
+
+            <div>
+
+                <h3>RECENT MATCHES</h3>
+
+                <ol id="historyList" class="record-list"></ol>
+
+            </div>
+
+        </div>
+
+
+        <button class="secondary-button back-button" id="recordsBackBtn">
+            BACK TO MENU
+        </button>
+
+    </section>
+
+
+
+    <!-- GAME SCREEN -->
+    <section id="gameScreen" hidden>
+
+
+        <!-- MATCH INFORMATION -->
+        <div class="match-topline">
+
+            <span id="matchModeLabel">
+                LOCAL MATCH
+            </span>
+
+            <span id="roundLabel">
+                ROUND 1 OF 3
+            </span>
+
+            <button class="ghost-button" id="quitMatchBtn">
+                QUIT MATCH
+            </button>
+
+        </div>
+
+
+
+        <!-- FIGHTING ARENA -->
+        <section class="arena panel">
+
+
+            <!-- PLAYER HEALTH BARS -->
+            <div class="hud">
+
+
+                <!-- PLAYER 1 HUD -->
+                <div class="player-hud">
+
+                    <div class="portrait red-border">
+
+                        <img id="portrait1" alt="Player 1">
+
+                    </div>
+
+
+                    <div class="hud-info">
+
+                        <strong id="name1">
+                            PLAYER 1
+                        </strong>
+
+
+                        <div class="health-track">
+
+                            <div class="health-fill" id="health1"></div>
+
+                        </div>
+
+
+                        <small id="healthText1">
+                            100 HP
+                        </small>
+
+
+                        <div class="power-track">
+
+                            <div class="power-fill" id="power1"></div>
+
+                        </div>
+
+
+                        <small class="power-label">
+                            POWER
+                        </small>
+
+
+                        <small class="score-label">
+                            ROUNDS:
+                            <b id="score1">0</b>
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- TIMER -->
+                <div class="timer-box">
+
+                    <span>TIME</span>
+
+                    <strong id="timer">60</strong>
+
+                </div>
+
+
+
+                <!-- PLAYER 2 HUD -->
+                <div class="player-hud right">
+
+
+                    <div class="hud-info">
+
+                        <strong id="name2">
+                            PLAYER 2
+                        </strong>
+
+
+                        <div class="health-track">
+
+                            <div
+                                class="health-fill blue-fill"
+                                id="health2"
+                            ></div>
+
+                        </div>
+
+
+                        <small id="healthText2">
+                            100 HP
+                        </small>
+
+
+                        <div class="power-track">
+
+                            <div
+                                class="power-fill blue-power"
+                                id="power2"
+                            ></div>
+
+                        </div>
+
+
+                        <small class="power-label">
+                            POWER
+                        </small>
+
+
+                        <small class="score-label">
+                            ROUNDS:
+                            <b id="score2">0</b>
+                        </small>
+
+                    </div>
+
+
+                    <div class="portrait blue-border">
+
+                        <img id="portrait2" alt="Player 2">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FIGHTING STAGE -->
+            <div class="stage" id="stage">
+
+
+                <div class="moon"></div>
+
+                <div class="temple">
+                    ⌂
+                </div>
+
+                <div class="mountains">
+                    ▲ ▲ ▲ ▲ ▲ ▲
+                </div>
+
+                <div class="ground"></div>
+
+
+                <!-- FIGHT MESSAGE -->
+                <div class="fight-banner" id="fightBanner">
+                    GET READY!
+                </div>
+
+
+
+                <!-- PLAYER 1 CHARACTER -->
+                <div class="fighter fighter-one" id="fighter1">
+
+                    <div class="fighter-name" id="fighterName1"></div>
+
+
+                    <div class="fighter-photo">
+
+                        <img id="face1" alt="Player 1">
+
+                    </div>
+
+
+                    <div class="fighter-body">
+
+                        <div class="arm arm-back"></div>
+
+                        <div class="torso"></div>
+
+                        <div class="arm arm-front"></div>
+
+                        <div class="leg leg-back"></div>
+
+                        <div class="leg leg-front"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- PLAYER 2 CHARACTER -->
+                <div class="fighter fighter-two" id="fighter2">
+
+                    <div class="fighter-name" id="fighterName2"></div>
+
+
+                    <div class="fighter-photo">
+
+                        <img id="face2" alt="Player 2">
+
+                    </div>
+
+
+                    <div class="fighter-body">
+
+                        <div class="arm arm-back"></div>
+
+                        <div class="torso"></div>
+
+                        <div class="arm arm-front"></div>
+
+                        <div class="leg leg-back"></div>
+
+                        <div class="leg leg-front"></div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- HIT EFFECT -->
+                <div class="hit-effect" id="hitEffect"></div>
+
+
+
+                <!-- WINNER POPUP -->
+                <div class="result-overlay" id="resultOverlay" hidden>
+
+                    <div class="result-card">
+
+                        <div class="trophy">
+                            🏆
+                        </div>
+
+
+                        <p class="eyebrow" id="resultEyebrow">
+                            ROUND COMPLETE
+                        </p>
+
+
+                        <h2 id="resultTitle">
+                            WINNER!
+                        </h2>
+
+
+                        <img id="winnerPhoto" alt="Winner">
+
+
+                        <p id="resultMessage"></p>
+
+
+                        <button
+                            class="primary-button"
+                            id="resultActionBtn"
+                        >
+                            NEXT ROUND
+                        </button>
+
+
+                        <button
+                            class="secondary-button"
+                            id="resultMenuBtn"
+                        >
+                            MAIN MENU
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- GAME STATUS -->
+            <p class="status" id="status">
+                Get ready to fight.
+            </p>
+
+        </section>
+
+
+
+        <!-- KEYBOARD CONTROLS -->
+        <section class="controls panel">
+
+
+            <div class="control-player">
+
+                <h3 class="red-text">
+                    PLAYER 1
+                    <small>WASD · F · R · Q · E</small>
+                </h3>
+
+                <p>
+                    A/D Move · W Jump · S Crouch ·
+                    F Punch · R Kick · Q Block · E Special
+                </p>
+
+            </div>
+
+
+
+            <div class="control-player">
+
+                <h3 class="blue-text">
+                    PLAYER 2
+                    <small>ARROWS · 1 · 2 · 3 · 4</small>
+                </h3>
+
+                <p>
+                    ←/→ Move · ↑ Jump · ↓ Crouch ·
+                    1 Punch · 2 Kick · 3 Block · 4 Special
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- TOUCH CONTROLS -->
+        <section class="touch-controls panel" aria-label="Touch controls">
+
+
+            <!-- PLAYER 1 TOUCH CONTROLS -->
+            <div class="touch-player">
+
+                <h3 class="red-text">
+                    PLAYER 1
+                </h3>
+
+
+                <div class="touch-grid">
+
+                    <button data-player="1" data-key="a">
+                        ◀
+                    </button>
+
+                    <button data-player="1" data-key="w">
+                        JUMP
+                    </button>
+
+                    <button data-player="1" data-key="d">
+                        ▶
+                    </button>
+
+                    <button data-player="1" data-key="s">
+                        CROUCH
+                    </button>
+
+                    <button data-player="1" data-key="f">
+                        PUNCH
+                    </button>
+
+                    <button data-player="1" data-key="r">
+                        KICK
+                    </button>
+
+                    <button data-player="1" data-key="q">
+                        BLOCK
+                    </button>
+
+                    <button data-player="1" data-key="e">
+                        SPECIAL
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PLAYER 2 TOUCH CONTROLS -->
+            <div class="touch-player">
+
+                <h3 class="blue-text">
+                    PLAYER 2
+                </h3>
+
+
+                <div class="touch-grid">
+
+                    <button data-player="2" data-key="arrowleft">
+                        ◀
+                    </button>
+
+                    <button data-player="2" data-key="arrowup">
+                        JUMP
+                    </button>
+
+                    <button data-player="2" data-key="arrowright">
+                        ▶
+                    </button>
+
+                    <button data-player="2" data-key="arrowdown">
+                        CROUCH
+                    </button>
+
+                    <button data-player="2" data-key="1">
+                        PUNCH
+                    </button>
+
+                    <button data-player="2" data-key="2">
+                        KICK
+                    </button>
+
+                    <button data-player="2" data-key="3">
+                        BLOCK
+                    </button>
+
+                    <button data-player="2" data-key="4">
+                        SPECIAL
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </section>
+
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        THE NAGESHWAR GAMES · FRIEND FIGHTER
+
+    </footer>
+
+</main>
+
+</body>
+
+</html>

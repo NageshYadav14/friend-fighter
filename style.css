@@ -1,0 +1,1063 @@
+/* =========================================
+   THE NAGESHWAR GAMES — FRIEND FIGHTER
+   ========================================= */
+
+:root {
+    --bg: #0b0d10;
+    --panel: #12151a;
+    --panel2: #191d24;
+    --border: #292e37;
+    --text: #e6e9ef;
+    --muted: #9299a6;
+
+    --red: #ef4444;
+    --blue: #3b82f6;
+    --green: #22c55e;
+    --gold: #f5c451;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 26px 16px 40px;
+    background: var(--bg);
+    color: var(--text);
+    font: 14px "Segoe UI", Arial, sans-serif;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.app {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* HEADER */
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+.site-header > div {
+    flex: 1;
+}
+
+.eyebrow {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 3px;
+    margin: 0 0 8px;
+}
+
+h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    letter-spacing: 2px;
+    margin: 0 0 6px;
+}
+
+.subtitle,
+.muted {
+    color: var(--muted);
+}
+
+.tiny {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    margin-top: 28px;
+}
+
+/* PANELS AND SCREENS */
+
+.panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.screen {
+    min-height: 470px;
+    padding: clamp(22px, 5vw, 54px);
+    margin-bottom: 24px;
+}
+
+/* BUTTONS */
+
+.primary-button,
+.secondary-button,
+.ghost-button {
+    border-radius: 7px;
+    padding: 13px 18px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    transition: 0.18s;
+}
+
+.primary-button {
+    background: #a51f2b;
+    color: white;
+    border: 1px solid #a51f2b;
+}
+
+.primary-button:hover {
+    background: #c52b38;
+    transform: translateY(-1px);
+}
+
+.secondary-button {
+    background: #20242b;
+    color: var(--text);
+    border: 1px solid #3a414d;
+}
+
+.secondary-button:hover,
+.ghost-button:hover {
+    background: #2a3039;
+}
+
+.ghost-button {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    padding: 9px 12px;
+    font-size: 11px;
+}
+
+/* MAIN MENU */
+
+.hero-copy {
+    text-align: center;
+    margin: 35px auto 32px;
+    max-width: 650px;
+}
+
+.hero-copy h2 {
+    font-size: clamp(34px, 7vw, 64px);
+    margin: 10px 0;
+    letter-spacing: 2px;
+}
+
+.hero-copy p:last-child {
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.menu-actions {
+    display: grid;
+    gap: 12px;
+    max-width: 360px;
+    margin: auto;
+}
+
+/* SECTION HEADINGS */
+
+.section-heading {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.section-heading h2 {
+    font-size: clamp(23px, 4vw, 34px);
+    margin: 8px 0;
+}
+
+/* CHARACTER SELECTION */
+
+.selection-columns,
+.records-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.selection-column,
+.records-columns > div {
+    padding: 18px;
+    background: #171b21;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    min-width: 0;
+}
+
+.selection-column h3,
+.records-columns h3 {
+    margin: 0 0 14px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.red-side h3,
+.red-text {
+    color: #ff7777;
+}
+
+.blue-side h3,
+.blue-text {
+    color: #79aaff;
+}
+
+.selected-preview {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: #222730;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 14px;
+    min-height: 82px;
+}
+
+.selected-preview img {
+    width: 62px;
+    height: 62px;
+    object-fit: cover;
+    border-radius: 7px;
+    background: #333;
+}
+
+.character-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.character-card {
+    min-width: 0;
+    background: #20242b;
+    border: 2px solid transparent;
+    color: var(--text);
+    border-radius: 7px;
+    padding: 6px;
+}
+
+.character-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.character-card span {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+    margin-top: 6px;
+}
+
+.red-side .character-card.selected {
+    border-color: var(--red);
+}
+
+.blue-side .character-card.selected {
+    border-color: var(--blue);
+}
+
+.button-row {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+/* ONLINE MULTIPLAYER */
+
+.online-box {
+    max-width: 520px;
+    margin: auto;
+    background: #171b21;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 22px;
+}
+
+.online-box label,
+.online-box input {
+    display: block;
+    width: 100%;
+}
+
+.online-box label {
+    color: var(--muted);
+    font-size: 12px;
+    margin-bottom: 7px;
+}
+
+.online-box input {
+    background: #0e1116;
+    border: 1px solid #39404b;
+    color: white;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 14px;
+    outline: none;
+}
+
+.online-box input:focus {
+    border-color: #728096;
+}
+
+.online-actions {
+    display: grid;
+    gap: 12px;
+}
+
+.join-row {
+    display: flex;
+    gap: 8px;
+}
+
+.join-row input {
+    margin: 0;
+    text-transform: uppercase;
+}
+
+.join-row button {
+    min-width: 100px;
+}
+
+.room-status,
+.room-waiting {
+    margin-top: 18px;
+    color: var(--muted);
+    line-height: 1.5;
+    text-align: center;
+}
+
+.room-waiting {
+    padding: 15px;
+    background: #10141a;
+    border-radius: 8px;
+}
+
+.room-waiting span {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.room-waiting strong {
+    display: block;
+    font-size: 34px;
+    letter-spacing: 7px;
+    color: var(--gold);
+    margin: 8px;
+}
+
+.room-waiting button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.back-button {
+    display: block;
+    margin: 22px auto 0;
+}
+
+/* MATCH HEADER */
+
+.match-topline {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 1px;
+    margin: 0 0 10px;
+}
+
+/* FIGHTING ARENA */
+
+.arena {
+    overflow: hidden;
+    position: relative;
+}
+
+/* HEALTH AND POWER BARS */
+
+.hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px;
+    background: #101318;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 5;
+}
+
+.player-hud {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 42%;
+    min-width: 0;
+}
+
+.player-hud.right {
+    text-align: right;
+}
+
+.hud-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.hud-info strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+}
+
+.portrait {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    padding: 2px;
+    border: 1px solid;
+    border-radius: 7px;
+    background: #1b2028;
+}
+
+.portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    display: block;
+}
+
+.red-border {
+    border-color: var(--red);
+}
+
+.blue-border {
+    border-color: var(--blue);
+}
+
+.health-track,
+.power-track {
+    height: 9px;
+    background: #303641;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 6px 0 3px;
+}
+
+.health-fill,
+.power-fill {
+    height: 100%;
+    width: 100%;
+    background: var(--green);
+    transition: width 0.18s;
+}
+
+.blue-fill {
+    background: var(--blue);
+}
+
+.power-track {
+    height: 6px;
+    margin-top: 6px;
+}
+
+.power-fill {
+    width: 0;
+    background: var(--gold);
+}
+
+.blue-power {
+    background: #68a4ff;
+}
+
+.hud-info small {
+    font-size: 9px;
+    color: var(--muted);
+}
+
+.power-label {
+    display: block;
+    letter-spacing: 1px;
+}
+
+.score-label {
+    display: block;
+    margin-top: 5px;
+}
+
+/* TIMER */
+
+.timer-box {
+    min-width: 56px;
+    text-align: center;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 7px;
+}
+
+.timer-box span {
+    display: block;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 1px;
+}
+
+.timer-box strong {
+    font-size: 25px;
+    color: var(--gold);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ARENA BACKGROUND */
+
+.stage {
+    height: 410px;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(
+        180deg,
+        #111722 0%,
+        #171c28 56%,
+        #252330 100%
+    );
+}
+
+.moon {
+    position: absolute;
+    top: 35px;
+    right: 15%;
+    width: 55px;
+    height: 55px;
+    background: #cbd1dd;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+.temple {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 130px;
+    color: #343747;
+    opacity: 0.7;
+}
+
+.mountains {
+    position: absolute;
+    top: 110px;
+    left: 0;
+    width: 100%;
+    color: #252b3a;
+    font-size: clamp(55px, 10vw, 100px);
+    letter-spacing: -12px;
+    white-space: nowrap;
+}
+
+.ground {
+    position: absolute;
+    z-index: -1;
+    bottom: 0;
+    width: 100%;
+    height: 24%;
+    background: repeating-linear-gradient(
+        0deg,
+        #24232e 0 2px,
+        #2d2b38 2px 4px,
+        #23222d 4px 30px
+    );
+    border-top: 2px solid #41404e;
+}
+
+/* FIGHT BANNER */
+
+.fight-banner {
+    position: absolute;
+    z-index: 4;
+    top: 34%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(25px, 5vw, 48px);
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 3px 12px #0008;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* FIGHTERS */
+
+.fighter {
+    position: absolute;
+    z-index: 3;
+    bottom: 22px;
+    left: 10px;
+    width: 120px;
+    height: 220px;
+    transform-origin: center bottom;
+}
+
+.fighter-name {
+    position: absolute;
+    z-index: 5;
+    top: -23px;
+    width: 100%;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: center;
+    text-shadow: 0 2px 5px #000;
+    white-space: nowrap;
+}
+
+.fighter-photo {
+    position: absolute;
+    z-index: 3;
+    top: 0;
+    left: 30px;
+    width: 62px;
+    height: 67px;
+    overflow: hidden;
+    background: #c6a28d;
+    border: 2px solid #d1d5db;
+    border-radius: 45% 45% 40% 40%;
+}
+
+.fighter-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.fighter-body {
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 120px;
+    height: 150px;
+    transform-origin: center top;
+}
+
+.torso {
+    position: absolute;
+    top: 5px;
+    left: 34px;
+    width: 52px;
+    height: 74px;
+    background: #b9344e;
+    border: 2px solid #401d2a;
+    border-radius: 10px;
+}
+
+.fighter-two .torso {
+    background: #2369bb;
+    border-color: #183b65;
+}
+
+.arm,
+.leg {
+    position: absolute;
+    background: #d8ad8d;
+    border: 2px solid #392c2a;
+    border-radius: 999px;
+}
+
+.arm {
+    top: 13px;
+    width: 23px;
+    height: 60px;
+}
+
+.arm-back {
+    left: 17px;
+    transform: rotate(25deg);
+}
+
+.arm-front {
+    right: 11px;
+    transform: rotate(-38deg);
+    transform-origin: 50% 12%;
+    transition: all 0.12s;
+}
+
+.leg {
+    top: 68px;
+    width: 28px;
+    height: 70px;
+}
+
+.leg-back {
+    left: 35px;
+    transform: rotate(9deg);
+}
+
+.leg-front {
+    right: 34px;
+    transform: rotate(-9deg);
+    transform-origin: 50% 10%;
+    transition: all 0.14s;
+}
+
+/* FIGHTING ANIMATIONS */
+
+.fighter.punch .arm-front {
+    right: -18px;
+    width: 52px;
+    transform: rotate(-10deg);
+}
+
+.fighter.kick .leg-front {
+    width: 65px;
+    transform: rotate(-65deg);
+}
+
+.fighter.blocking .arm-front {
+    transform: rotate(-100deg) translateY(-8px);
+    right: 24px;
+}
+
+.fighter.special {
+    filter: brightness(1.55) drop-shadow(0 0 12px #ffc34d);
+}
+
+.fighter.crouching {
+    transform: scaleY(0.72);
+    transform-origin: bottom;
+}
+
+.fighter.jumping {
+    filter: brightness(1.12);
+}
+
+.fighter.hit {
+    animation: shake 0.22s linear;
+}
+
+@keyframes shake {
+    0%, 100% {
+        translate: 0;
+    }
+
+    25% {
+        translate: -7px;
+    }
+
+    75% {
+        translate: 7px;
+    }
+}
+
+/* HIT AND COMBO EFFECTS */
+
+.hit-effect {
+    position: absolute;
+    z-index: 8;
+    display: none;
+    color: #ffd166;
+    font-size: 20px;
+    font-weight: 900;
+    text-shadow: 0 0 12px #ff7b00;
+    pointer-events: none;
+}
+
+.combo-message {
+    position: absolute;
+    z-index: 9;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #ffd166;
+    font-size: clamp(18px, 4vw, 34px);
+    font-weight: 900;
+    white-space: nowrap;
+    text-shadow: 0 0 12px #ff7b00;
+    animation: pop 0.7s ease forwards;
+}
+
+@keyframes pop {
+    0% {
+        opacity: 0;
+        scale: 0.7;
+    }
+
+    25% {
+        opacity: 1;
+        scale: 1.12;
+    }
+
+    100% {
+        opacity: 0;
+        translate: 0 -30px;
+    }
+}
+
+/* GAME STATUS */
+
+.status {
+    text-align: center;
+    color: var(--muted);
+    padding: 10px;
+    margin: 0;
+}
+
+/* WINNER POPUP */
+
+.result-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background: #080a0ddd;
+    display: grid;
+    place-items: center;
+    padding: 16px;
+}
+
+.result-card {
+    width: min(100%, 360px);
+    padding: 24px;
+    background: #171b21;
+    border: 1px solid #414957;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 18px 60px #0009;
+}
+
+.result-card .trophy {
+    font-size: 42px;
+}
+
+.result-card h2 {
+    font-size: 26px;
+    margin: 8px 0;
+}
+
+.result-card img {
+    width: 105px;
+    height: 105px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: block;
+}
+
+.result-card p {
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.result-card button {
+    width: 100%;
+    margin-top: 9px;
+}
+
+/* KEYBOARD CONTROLS */
+
+.controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 15px;
+    margin-top: 12px;
+}
+
+.control-player {
+    background: #171b21;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+.control-player h3 {
+    margin: 0 0 8px;
+    font-size: 12px;
+}
+
+.control-player h3 small {
+    display: block;
+    color: var(--muted);
+    font-size: 9px;
+    margin-top: 4px;
+}
+
+.control-player p {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* TOUCH CONTROLS */
+
+.touch-controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    padding: 14px;
+    margin-top: 12px;
+}
+
+.touch-player h3 {
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.touch-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+}
+
+.touch-grid button {
+    min-height: 39px;
+    background: #242a33;
+    border: 1px solid #414957;
+    color: var(--text);
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 800;
+    touch-action: none;
+    user-select: none;
+}
+
+.touch-grid button:active,
+.touch-grid button.pressed {
+    background: #515c6d;
+}
+
+/* LEADERBOARD AND HISTORY */
+
+.record-list {
+    padding-left: 22px;
+    color: var(--muted);
+    line-height: 2.1;
+}
+
+.record-list li {
+    padding-left: 4px;
+}
+
+/* FOOTER */
+
+.footer {
+    text-align: center;
+    color: #555e6b;
+    font-size: 9px;
+    letter-spacing: 2px;
+    margin-top: 24px;
+}
+
+/* =========================================
+   RESPONSIVE DESIGN — MOBILE AND TABLETS
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    body {
+        padding: 15px 10px 28px;
+    }
+
+    .site-header {
+        align-items: flex-start;
+    }
+
+    .site-header .ghost-button {
+        font-size: 9px;
+        padding: 8px;
+    }
+
+    .selection-columns,
+    .records-columns,
+    .controls,
+    .touch-controls {
+        grid-template-columns: 1fr;
+    }
+
+    .screen {
+        padding: 22px 15px;
+        min-height: 0;
+    }
+
+    .stage {
+        height: 360px;
+    }
+
+    .fighter {
+        scale: 0.82;
+        transform-origin: bottom left;
+    }
+
+    .fighter-two {
+        transform-origin: bottom right;
+    }
+
+    .hud {
+        gap: 6px;
+        padding: 9px;
+    }
+
+    .player-hud {
+        gap: 6px;
+        width: 42%;
+    }
+
+    .portrait {
+        width: 38px;
+        height: 38px;
+    }
+
+    .timer-box {
+        min-width: 45px;
+        padding: 5px;
+    }
+
+    .timer-box strong {
+        font-size: 21px;
+    }
+
+    .hud-info strong {
+        font-size: 10px;
+    }
+
+    .hud-info small {
+        font-size: 8px;
+    }
+
+    .match-topline {
+        font-size: 9px;
+    }
+
+    .touch-grid button {
+        min-height: 42px;
+    }
+}
